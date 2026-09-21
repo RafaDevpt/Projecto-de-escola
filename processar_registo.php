@@ -16,17 +16,23 @@ $ligacao = myqsl_connect('localhost', 'root', '') or die ('Nao foi possivel liga
 //activar a base de dados pretendida
 mysql_select_db($base_dados,  $ligacao) or die (mysql_error($ligacao));
 //atribuir uma variavel aos dados recolhidos do formulario
-$username = $_POST['nome'];
-$password = $_POST['password'];
-$email = $_POST['email'];
-$morada = $_POST['morada'];
-$codigo_postal = $_POST['codigo_postal'];
-$pais = $_POST['pais'];
-$telefone = $_POST['telefone'];
+/* PT-PT: Registo publico: todos os campos iam de $_POST para o INSERT sem
+          qualquer tratamento, portanto injeccao sem autenticacao nenhuma.
+          mysql_* nao tem consultas preparadas; escapa-se.
+   EN-UK: Public registration: every field went from $_POST into the INSERT
+          untreated, so injection with no authentication at all.
+          mysql_* has no prepared statements; we escape. */
+$username = mysql_real_escape_string($_POST['nome'], $ligacao);
+$password = mysql_real_escape_string($_POST['password'], $ligacao);
+$email = mysql_real_escape_string($_POST['email'], $ligacao);
+$morada = mysql_real_escape_string($_POST['morada'], $ligacao);
+$codigo_postal = mysql_real_escape_string($_POST['codigo_postal'], $ligacao);
+$pais = mysql_real_escape_string($_POST['pais'], $ligacao);
+$telefone = mysql_real_escape_string($_POST['telefone'], $ligacao);
 $Localidade = $_POST['localidade'];
 //cirar a instruçao para introduzir dados da tabela e executa-los
-$sql="INSERT INTO Clientes (nome, password, email,  morada, codigo_postal, pais, telefone, localidade) VALUES '$username', '$password', '$email', '$morada', '$codigo_postal', '$pais', '$telefone', '$localidade')";
-$consulta = mysql_query($sql);
+$sql="INSERT INTO Clientes (nome, password, email,  morada, codigo_postal, pais, telefone, localidade) VALUES ('$username', '$password', '$email', '$morada', '$codigo_postal', '$pais', '$telefone', '$localidade')";
+$consulta = mysql_query($sql, $ligacao);
 if ((consulta) !=1) {
 //caso os dados nao sejam inseridos com sucesso, obriga a novo registo
 header("Location: registar_utilizador.php"); exit;

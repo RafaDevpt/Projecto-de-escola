@@ -60,7 +60,9 @@ session_start();
 //ligacao a base de dados
 include('ligacao_db.php');
 //capturar codigo de artigo
-$id_artigo = $_REQUEST['id_artigo'];
+/* PT-PT: id de artigo vinha de $_REQUEST para dentro de duas consultas.
+   EN-UK: article id went from $_REQUEST into two queries. */
+$id_artigo = (int) $_REQUEST['id_artigo'];
 //preparar sessao de compra
 $sessao = session_id();
 //pesquisar artigo seleccionado

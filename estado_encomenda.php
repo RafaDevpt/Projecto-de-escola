@@ -5,7 +5,13 @@ session_start();
 //ligacao à base de dados
 include("ligacao_db.php");
 //verificar se o utilizador ja realizou o acesso
-if(!isset($_SESSION['nivel_utilizador'==2])){
+/* PT-PT: Estava $_SESSION['nivel_utilizador'==2], que indexa o RESULTADO
+          da comparacao ('nivel_utilizador'==2, ou seja false -> 0) e nao a
+          chave pretendida. A verificacao nunca testou o que dizia testar.
+   EN-UK: This read $_SESSION['nivel_utilizador'==2], which subscripts the
+          RESULT of the comparison ('nivel_utilizador'==2, i.e. false -> 0)
+          and not the intended key. The check never tested what it claimed. */
+if(!isset($_SESSION['nivel_utilizador'])){
 	echo"<tr>Nao esta autorizado a aceder a esta pagina!</tr>";
 	echo"<tr><a href='index.php'>Clique aqui para voltar a pagina inicial</a></tr>";
 }

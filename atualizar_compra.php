@@ -7,8 +7,12 @@ include('ligacao_db.php');
 //verificar numero de sessao
 $sessao=session_id();
 //capturar valores da compra
-$quantidade = $_REQUEST['quantidade'];
-$id_artigo=$_REQUEST['id_artigo'];
+/* PT-PT: quantidade e id de artigo sao numericos e iam sem tratamento
+          para o SQL do carrinho.
+   EN-UK: quantity and article id are numeric and reached the cart SQL
+          untreated. */
+$quantidade = (int) $_REQUEST['quantidade'];
+$id_artigo = (int) $_REQUEST['id_artigo'];
 $acao=$_REQUEST['submit'];
 switch($acao){
 	/*apresenta opcao conforme cada caso: adicionar, alterar ou remover */

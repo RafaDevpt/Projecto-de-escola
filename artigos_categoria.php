@@ -2,10 +2,16 @@
 //ligacao a base de dados
 include('ligacao_db.php');
 //capturar valor da categoria
-$id_cat = $_GET['id_cat'];
+/* PT-PT: id de categoria vinha de $_GET directamente para o SQL. E um
+          numero, portanto converte-se -- nao ha forma de injectar um int.
+   EN-UK: category id went from $_GET straight into the SQL. It is a
+          number, so cast it -- an int cannot carry an injection. */
+$id_cat = (int) $_GET['id_cat'];
 //procurar artigos disponiveis
-$sql_cat='SELECT * FROM artigos WHERE id_categoria="'.$id_cat.'"ORDER BY nome_artigo ASC';
-$consulta=mysql_query(sql_cat);
+$sql_cat='SELECT * FROM artigos WHERE id_categoria="'.$id_cat.'" ORDER BY nome_artigo ASC';
+// PT-PT: faltava o $ -- passava a constante "sql_cat", nao a consulta.
+// EN-UK: the $ was missing -- it passed the constant "sql_cat", not the query.
+$consulta=mysql_query($sql_cat);
 //verificar se existem resultados e mostra-los
 if($consulta !=0){
 	echo"<table width='800px' border='1' align='center'>";

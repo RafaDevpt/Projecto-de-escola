@@ -1,9 +1,18 @@
 <?php
 include('verificar_admin.php');
 //ligar à base de dados
-$ligacao = mysql_connect('localhost', 'root', '') or die ('Nao foi possivel ligqar a base de dados');
+/* PT-PT: Ligava-se como root com palavra-passe vazia, e a outra base de
+          dados ('gestao_utilizadores'), em vez de usar a ligacao partilhada.
+          Credenciais de administrador em codigo, num ficheiro que listava
+          todos os clientes sem exigir autenticacao nenhuma.
+   EN-UK: Connected as root with an empty password, to a different database
+          ('gestao_utilizadores'), instead of using the shared connection.
+          Administrator credentials in code, in a file that listed every
+          customer without requiring any authentication. */
+include('ligacao_db.php');
 //activar a base de dados pretendida
-mysql_select_db('gestao_utilizadores', $ligacao) or die (mysql_error($ligacao));
+// PT-PT: ligacao_db.php ja seleccionou a base de dados correcta.
+// EN-UK: ligacao_db.php has already selected the correct database.
 //criar a consulta a base de dados
 $sql = 'SELECT * FROM Clientes ORDER BY nome_cliente ASC';
 //criar a variavel $consulta que guarda os resultados obtidos, ordenados por nome de forma ascendente
