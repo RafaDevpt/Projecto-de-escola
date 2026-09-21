@@ -63,15 +63,25 @@
 include("ligacao_db.php");
 //verificar se foi clicado o botao de registar topico(submit)
 if(isset($_REQUEST['registar'])) {
-	//verificar se os campos do formulario estao preenchidos
-	if (!empty($_POST) AND (empty($_POST['nickname']) OR empty($_POST['password']))) {
-		echo "<table class='tabela_baixo' align='center' width='800px'><tr><td>J!</td>";
+	/* PT-PT: O ramo de campos em falta escrevia a mensagem mas nao parava a
+	          execucao: seguia para o INSERT e registava um utilizador vazio.
+	          E $_POST entrava sem escape nas duas consultas -- o registo e
+	          publico, portanto injeccao sem autenticacao nenhuma.
+	   EN-UK: The missing-fields branch printed a message but did not stop:
+	          it fell through to the INSERT and registered an empty user.
+	          And $_POST reached both queries unescaped -- registration is
+	          public, so this was injection with no authentication at all. */
+	if (empty($_POST['nickname']) || empty($_POST['password'])) {
+		echo "<table class='tabela_baixo' align='center' width='800px'><tr><td>Preencha todos os campos obrigatorios!</td>";
 		echo "<td><a href='registar_utilizador.php'>Clique para tentar de novo!</a></td>";
+		return;
 	}
-	//verificar se ja existe um utilizador registado coim o mesmo nome
-	$nickname = $_POST['nickname'];
+	//verificar se ja existe um utilizador registado com o mesmo nome
+	$nickname = mysql_real_escape_string($_POST['nickname'], $ligacao);
+	$password = mysql_real_escape_string($_POST['password'], $ligacao);
+	$email = mysql_real_escape_string(isset($_POST['email']) ? $_POST['email'] : '', $ligacao);
 	$sql="SELECT * FROM utilizadores WHERE nome_utilizador='$nickname'";
-	$consulta=mysql_query($sql);
+	$consulta=mysql_query($sql, $ligacao);
 	$resultado=mysql_num_rows($consulta);
 	//se ja existe utilizador, apresenta mensagem de erro
 	if($resultado !=0){
@@ -80,8 +90,8 @@ if(isset($_REQUEST['registar'])) {
 	}
 	else{
 		//se nao existe utilizador com o mesmo nome, cria novo registo
-	$sql2="INSERT INTO utilizadores(nome_utilizador, palavra_passe, email, nivel_utilizador) VALUES('".$_POST['nickname']."','".$_POST['password']."','".$_POST['email']."','2')";
-	$consulta2=mysql_query($sql2);
+	$sql2="INSERT INTO utilizadores(nome_utilizador, palavra_passe, email, nivel_utilizador) VALUES('$nickname','$password','$email','2')";
+	$consulta2=mysql_query($sql2, $ligacao);
 	echo"<table class='tabela_baixo' align='center' width='800px'><tr><td>Obrigado por se registar!</td>";
 	echo"<td><a href='index.php'>Clique para continuar!</a></td>";
 	}
