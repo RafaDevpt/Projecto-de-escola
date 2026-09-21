@@ -1,4 +1,5 @@
 <?php
+include('verificar_admin.php');
 //iniciar sessao
 session_start();
 //ligacao a base de dados

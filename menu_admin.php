@@ -1,4 +1,5 @@
-﻿<html>
+<?php include('verificar_admin.php'); ?>
+<html>
 <table width="800" border="1" align="center">
 <td align="center">Menu de administrador</td><br/>
 <tr><td><a href="adicionar_categoria.php">Adicionar categoria</a></tr>

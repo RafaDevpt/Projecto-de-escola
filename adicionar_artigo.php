@@ -1,4 +1,5 @@
-﻿<table width="800" border="1" align="center">
+<?php include('verificar_admin.php'); ?>
+<table width="800" border="1" align="center">
 <form action="processar_registo_artigo.php" method="POST" enctype="multipart/form-data">
 <tr>
 <td>Nome do artigo</td>

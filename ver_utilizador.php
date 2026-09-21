@@ -1,4 +1,5 @@
-﻿<?php
+<?php
+include('verificar_admin.php');
 //ligar à base de dados
 $ligacao = mysql_connect('localhost', 'root', '') or die ('Nao foi possivel ligqar a base de dados');
 //activar a base de dados pretendida

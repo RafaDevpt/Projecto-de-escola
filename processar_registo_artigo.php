@@ -1,4 +1,5 @@
 <?php
+include('verificar_admin.php');
 //ligaçao a base de dados
 include('ligacao_db.php');
 $cat_prod = $_POST["cat_prod"];

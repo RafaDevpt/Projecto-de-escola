@@ -1,5 +1,6 @@
 
 <?php
+include('verificar_sessao.php');
 //iniciar sessao
 session_start();
 //ligacao a base de dados

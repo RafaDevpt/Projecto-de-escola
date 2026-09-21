@@ -1,4 +1,5 @@
-﻿<?php
+<?php
+include('verificar_admin.php');
 //registar categoria
 if(isset($_REQUEST['registar'])) {
 //ligacao a base de dados
