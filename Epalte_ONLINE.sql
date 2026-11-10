@@ -95,9 +95,9 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 --
 
 INSERT INTO `clientes` (`id_cliente`, `nome_login`, `palavra_passe`, `primeiro_nome`, `apelido`, `endereco`, `localidade`, `codigo_postal`, `telefone`, `email`, `nivel_utilizador`) VALUES
-(3, 'Rafael_S', 'rafa', 'Rafael', 'Santos', 'alcantas', 'Alcantarilha', '8365', 123456789, 'a1311@epalte.pt', 2),
-(4, 'Bruno_B', 'bruno', 'Bruno', 'BrÃ¡s', 'Goncinha', 'LoulÃ©', '8100', 123456789, 'b.bras7@gmail.com', 2),
-(5, 'p_martins', 'paula', 'Paula', 'Martins', 'LoulÃ©', 'LoulÃ©', '8100', 123456789, 'paula.martins@epalte.pt', 2);
+(3, 'cliente1', 'changeme', 'Ana', 'Exemplo', 'Rua Exemplo 1', 'Lisboa', '1000-001', 123456789, 'cliente1@example.com', 2),
+(4, 'cliente2', 'changeme', 'Bruno', 'Exemplo', 'Rua Exemplo 2', 'Lisboa', '1000-002', 123456789, 'cliente2@example.com', 2),
+(5, 'cliente3', 'changeme', 'Carla', 'Exemplo', 'Rua Exemplo 3', 'Lisboa', '1000-003', 123456789, 'cliente3@example.com', 2);
 
 -- --------------------------------------------------------
 
@@ -146,8 +146,8 @@ CREATE TABLE IF NOT EXISTS `compra_temporaria` (
 --
 
 INSERT INTO `compra_temporaria` (`sessao`, `id_artigo`, `quantidade`) VALUES
-('a84kn4ijp0ugd8k898o4nno546', 10, 1),
-('okmiif09alviu9ud5gk9vbq6d1', 10, 1);
+('sessao00000000000000000000', 10, 1),
+('sessao00000000000000000001', 10, 1);
 
 -- --------------------------------------------------------
 
@@ -180,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `utilizadores` (
 --
 
 INSERT INTO `utilizadores` (`id_utilizador`, `nome_utilizador`, `palavra_passe`, `email`, `nivel_utilizador`) VALUES
-(1, 'administrador', '1234', 'a1305@epalte.pt', 1);
+(1, 'administrador', 'changeme', 'admin@example.com', 1);
 
 --
 -- Indexes for dumped tables
